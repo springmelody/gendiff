@@ -7,3 +7,5 @@ publish:
 	npm publish --dry-run
 test:
 	npm test
+rec:
+	asciinema rec

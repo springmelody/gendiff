@@ -22,5 +22,4 @@ const genDiff = (firstPathFile, secondPathFile, format = 'pretty') => {
   return chooseFormat(ast, format);
 };
 
-// console.log(genDiff('../__fixtures__/before.json', '../__fixtures__/after.json', 'json'));
 export default genDiff;
