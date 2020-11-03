@@ -7,4 +7,5 @@ const parsers = {
   yaml: yaml.safeLoad,
   ini: ini.parse,
 };
+
 export default (dataType, data) => parsers[dataType](data);

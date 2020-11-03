@@ -12,7 +12,7 @@ const getNestedData = (data, nestingLevel) => {
   const keys = Object.keys(data);
   const indent = ' '.repeat(numberIndents * nestingLevel);
   const result = keys.map((key) => {
-    const nestingIndent = ' '.repeat(numberIndents * (nestingLevel + 1)); // indent поменять
+    const nestingIndent = ' '.repeat(numberIndents * (nestingLevel + 1));
     if (_.isObject(data[key])) {
       return `${nestingIndent}${key}: ${getNestedData(data[key], nestingLevel + 1)}`;
     }
