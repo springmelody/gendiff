@@ -28,5 +28,5 @@ jobs:
         env:
           COVERAGE_KEY: ${{ secrets.CoverageKey }}
         with:
-          coverageCommand: make test-c
+          coverageCommand: make test-coverage
           debug: true
