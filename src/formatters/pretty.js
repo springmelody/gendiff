@@ -1,5 +1,7 @@
 import _ from 'lodash';
 
+const numberIndents = 4;
+
 const boolToString = (item) => {
   if (typeof item !== 'boolean') {
     return item;
@@ -8,7 +10,6 @@ const boolToString = (item) => {
 };
 
 const getNestedData = (data, nestingLevel) => {
-  const numberIndents = 4;
   const keys = Object.keys(data);
   const indent = ' '.repeat(numberIndents * nestingLevel);
   const result = keys.map((key) => {
@@ -25,7 +26,6 @@ const getValue = (value, nestingLevel) => (
   _.isObject(value) ? getNestedData(value, nestingLevel) : boolToString(value));
 
 const generatePrettyFormat = (ast, nestingLevel = 0) => {
-  const numberIndents = 4;
   const indent = ' '.repeat(numberIndents * nestingLevel);
   const result = ast.map((node) => {
     const valueBefore = getValue(node.valueBefore, nestingLevel + 1);

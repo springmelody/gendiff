@@ -2,24 +2,17 @@ import fs from 'fs';
 import path from 'path';
 import parse from './parsers.js';
 import generateAst from './generateAst.js';
-import chooseFormat from './formatters/index.js';
-
-const checkFiles = (firstPathFile, secondPathFile) => {
-  if (path.extname(firstPathFile) !== path.extname(secondPathFile)) {
-    throw new Error('Different file types');
-  }
-
-  return path.extname(firstPathFile).replace('.', '');
-};
+import render from './formatters/index.js';
 
 const genDiff = (firstPathFile, secondPathFile, format = 'pretty') => {
-  const fileFormat = checkFiles(firstPathFile, secondPathFile);
-  const firstFile = fs.readFileSync(firstPathFile, 'utf-8');
-  const secondFile = fs.readFileSync(secondPathFile, 'utf-8');
-  const firstData = parse(fileFormat, firstFile);
-  const secondData = parse(fileFormat, secondFile);
-  const ast = generateAst(firstData, secondData);
-  return chooseFormat(ast, format);
+  const firstData = fs.readFileSync(path.resolve(firstPathFile), 'utf-8');
+  const secondData = fs.readFileSync(path.resolve(secondPathFile), 'utf-8');
+  const firstDataFormat = path.extname(firstPathFile).slice(1);
+  const secondDataFormat = path.extname(secondPathFile).slice(1);
+  const firstParsedData = parse(firstDataFormat, firstData);
+  const secondParsedData = parse(secondDataFormat, secondData);
+  const ast = generateAst(firstParsedData, secondParsedData);
+  return render(ast, format);
 };
 
 export default genDiff;

@@ -23,8 +23,7 @@ const generatePlainFormat = (ast, ancestors = '') => {
         acc.push(`Property '${newAncestors}' was removed`);
         break;
       case 'unchanged':
-        acc.push(null);
-        break;
+        return acc;
       case 'changed':
         acc.push(`Property '${newAncestors}' was updated. From ${valueBefore} to ${valueAfter}`);
         break;
@@ -36,7 +35,7 @@ const generatePlainFormat = (ast, ancestors = '') => {
     }
     return acc;
   }, []);
-  return _.compact(result).join('\n');
+  return result.join('\n');
 };
 
 export default generatePlainFormat;

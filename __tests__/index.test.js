@@ -16,22 +16,14 @@ describe('gendiff', () => {
   const expecteJson = readFile('resultJson.json');
 
   test('pretty', () => {
-    expect(genDiff('__fixtures__/before.json', '__fixtures__/after.json')).toEqual(expected);
+    expect(genDiff('__fixtures__/before.ini', '__fixtures__/after.json')).toEqual(expected);
   });
 
   test('plain', () => {
-    expect(genDiff('__fixtures__/before.json', '__fixtures__/after.json', 'plain')).toEqual(expectedPlain);
+    expect(genDiff('__fixtures__/before.json', '__fixtures__/after.yml', 'plain')).toEqual(expectedPlain);
   });
 
   test('json', () => {
-    expect(genDiff('__fixtures__/before.json', '__fixtures__/after.json', 'json')).toEqual(expecteJson);
-  });
-
-  test('yaml', () => {
-    expect(genDiff('__fixtures__/before.yml', '__fixtures__/after.yml')).toEqual(expected);
-  });
-
-  test('ini', () => {
-    expect(genDiff('__fixtures__/before.ini', '__fixtures__/after.ini')).toEqual(expected);
+    expect(genDiff('__fixtures__/before.yml', '__fixtures__/after.ini', 'json')).toEqual(expecteJson);
   });
 });
