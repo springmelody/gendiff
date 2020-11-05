@@ -9,5 +9,5 @@ test:
 	npm test
 rec:
 	asciinema rec
-test-c:
-		npm test -- --coverage
+test-coverage:
+	npm test -- --coverage --coverageProvider=v8
