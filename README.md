@@ -1,6 +1,6 @@
 # Gendiff - консольная утилита для поиска отличий в конфигурационных файлах
 [![Maintainability](https://api.codeclimate.com/v1/badges/99870e047bd75887b9e3/maintainability)](https://codeclimate.com/github/springmelody/frontend-project-lvl2/maintainability)
-![make_lint](https://github.com/springmelody/frontend-project-lvl2/workflows/make_lint/badge.svg)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/99870e047bd75887b9e3/test_coverage)](https://codeclimate.com/github/springmelody/frontend-project-lvl2/test_coverage)
 
 ## asciinema
 * [pretty diff](https://asciinema.org/a/370089)
