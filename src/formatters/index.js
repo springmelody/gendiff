@@ -2,7 +2,7 @@ import generatePrettyFormat from './pretty.js';
 import generatePlainFormat from './plain.js';
 import generateJsonFormat from './json.js';
 
-const render = (ast, format) => {
+const buildOutput = (ast, format) => {
   switch (format) {
     case 'pretty':
       return generatePrettyFormat(ast);
@@ -15,4 +15,4 @@ const render = (ast, format) => {
   }
 };
 
-export default render;
+export default buildOutput;
