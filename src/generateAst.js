@@ -4,16 +4,16 @@ const generateAst = (before, after) => {
   const uniqueKeys = _.union(Object.keys(before), Object.keys(after)).sort();
   return uniqueKeys.map((key) => {
     if (!_.has(before, key)) {
-      return { type: 'added', key, valueAfter: after[key] };
+      return { type: 'added', key, value: after[key] };
     }
 
     if (_.has(before, key) && !_.has(after, key)) {
-      return { type: 'deleted', key, valueBefore: before[key] };
+      return { type: 'deleted', key, value: before[key] };
     }
 
     if (before[key] === after[key]) {
       return {
-        type: 'unchanged', key, valueBefore: before[key], valueAfter: after[key],
+        type: 'unchanged', key, value: after[key],
       };
     }
 
@@ -22,7 +22,7 @@ const generateAst = (before, after) => {
     }
 
     return {
-      type: 'changed', key, valueBefore: before[key], valueAfter: after[key],
+      type: 'changed', key, oldValue: before[key], value: after[key],
     };
   });
 };

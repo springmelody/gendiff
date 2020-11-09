@@ -27,25 +27,23 @@ const getValue = (value, nestingLevel) => (
 
 const generatePrettyFormat = (ast, nestingLevel = 0) => {
   const indent = ' '.repeat(numberIndents * nestingLevel);
-  const result = ast.map((node) => {
-    const valueBefore = getValue(node.valueBefore, nestingLevel + 1);
-    const valueAfter = getValue(node.valueAfter, nestingLevel + 1);
+  const iter = (node, depth) => {
     switch (node.type) {
       case 'added':
-        return `${indent}  + ${node.key}: ${valueAfter}`;
+        return `${indent}  + ${node.key}: ${getValue(node.value, depth + 1)}`;
       case 'deleted':
-        return `${indent}  - ${node.key}: ${valueBefore}`;
+        return `${indent}  - ${node.key}: ${getValue(node.value, depth + 1)}`;
       case 'unchanged':
-        return `${indent}    ${node.key}: ${valueBefore}`;
+        return `${indent}    ${node.key}: ${getValue(node.value, depth + 1)}`;
       case 'changed':
-        return `${indent}  - ${node.key}: ${valueBefore}\n${indent}  + ${node.key}: ${valueAfter}`;
+        return `${indent}  - ${node.key}: ${getValue(node.oldValue, depth + 1)}\n${indent}  + ${node.key}: ${getValue(node.value, depth + 1)}`;
       case 'nested':
-        return `${indent}    ${node.key}: ${generatePrettyFormat(node.children, nestingLevel + 1)}`;
+        return `${indent}    ${node.key}: ${generatePrettyFormat(node.children, depth + 1)}`;
       default:
         throw new Error(`Unknown type ${node.type}`);
     }
-  });
-  return `{\n${result.join('\n')}\n${indent}}`;
+  };
+  return `{\n${ast.map((n) => iter(n, nestingLevel)).join('\n')}\n${indent}}`;
 };
 
 export default generatePrettyFormat;

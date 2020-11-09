@@ -2,8 +2,8 @@ import generatePrettyFormat from './pretty.js';
 import generatePlainFormat from './plain.js';
 import generateJsonFormat from './json.js';
 
-const buildOutput = (ast, format) => {
-  switch (format) {
+const format = (ast, formatName) => {
+  switch (formatName) {
     case 'pretty':
       return generatePrettyFormat(ast);
     case 'plain':
@@ -11,8 +11,8 @@ const buildOutput = (ast, format) => {
     case 'json':
       return generateJsonFormat(ast);
     default:
-      throw new Error(`Unknown format ${format}`);
+      throw new Error(`Unknown format ${formatName}`);
   }
 };
 
-export default buildOutput;
+export default format;

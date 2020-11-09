@@ -11,31 +11,25 @@ const getValue = (value) => {
 };
 
 const generatePlainFormat = (ast, ancestors = '') => {
-  const result = ast.reduce((acc, node) => {
-    const valueBefore = getValue(node.valueBefore);
-    const valueAfter = getValue(node.valueAfter);
+  const iter = (node) => {
     const newAncestors = `${ancestors}${node.key}`;
     switch (node.type) {
       case 'added':
-        acc.push(`Property '${newAncestors}' was added with value: ${valueAfter}`);
-        break;
+        return `Property '${newAncestors}' was added with value: ${getValue(node.value)}`;
       case 'deleted':
-        acc.push(`Property '${newAncestors}' was removed`);
-        break;
+        return `Property '${newAncestors}' was removed`;
       case 'unchanged':
-        return acc;
+        return null;
       case 'changed':
-        acc.push(`Property '${newAncestors}' was updated. From ${valueBefore} to ${valueAfter}`);
-        break;
+        return `Property '${newAncestors}' was updated. From ${getValue(node.oldValue)} to ${getValue(node.value)}`;
       case 'nested':
-        acc.push(generatePlainFormat(node.children, `${newAncestors}.`));
-        break;
+        return generatePlainFormat(node.children, `${newAncestors}.`);
       default:
         throw new Error(`Unknown type ${node.type}`);
     }
-    return acc;
-  }, []);
-  return result.join('\n');
+  };
+
+  return _.compact(ast.map((n) => iter(n, ancestors))).join('\n');
 };
 
 export default generatePlainFormat;
