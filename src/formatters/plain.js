@@ -21,7 +21,7 @@ const generatePlainFormat = (ast, ancestors = '') => {
       case 'unchanged':
         return null;
       case 'changed':
-        return `Property '${newAncestors}' was updated. From ${getValue(node.oldValue)} to ${getValue(node.value)}`;
+        return `Property '${newAncestors}' was updated. From ${getValue(node.oldValue)} to ${getValue(node.newValue)}`;
       case 'nested':
         return generatePlainFormat(node.children, `${newAncestors}.`);
       default:
@@ -32,4 +32,4 @@ const generatePlainFormat = (ast, ancestors = '') => {
   return _.compact(ast.map((n) => iter(n, ancestors))).join('\n');
 };
 
-export default generatePlainFormat;
+export default (ast) => generatePlainFormat(ast, '');

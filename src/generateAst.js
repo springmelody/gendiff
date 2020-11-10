@@ -22,7 +22,7 @@ const generateAst = (before, after) => {
     }
 
     return {
-      type: 'changed', key, oldValue: before[key], value: after[key],
+      type: 'changed', key, oldValue: before[key], newValue: after[key],
     };
   });
 };
